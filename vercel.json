@@ -1,3 +1,15 @@
 {
-  "rewrites": [{ "source": "/api/(.*)", "destination": "/api/$1" }]
+  "buildCommand": "echo 'No build needed'",
+  "outputDirectory": ".",
+  "functions": {
+    "api/email.js": {
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ]
 }

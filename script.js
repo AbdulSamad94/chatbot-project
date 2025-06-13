@@ -72,7 +72,7 @@ function renderQuestion() {
                 product,
             };
 
-            await fetch("https://chatbot-project-tau.vercel.app/api/email", {
+            await fetch("/api/email", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
