@@ -49,7 +49,7 @@ function renderQuestion() {
         q.fields.forEach(field => {
             const input = document.createElement("input");
             input.placeholder = field;
-            input.name = field.toLowerCase().replace(" ", "_");
+            input.name = field.toLowerCase().replace(/ /g, "_");
             input.required = true;
             div.appendChild(document.createElement("br"));
             div.appendChild(input);
@@ -60,27 +60,46 @@ function renderQuestion() {
         submit.onclick = async () => {
             const inputs = div.querySelectorAll("input");
             const formData = {};
+            let allFilled = true;
+
             inputs.forEach(input => {
-                formData[input.name] = input.value;
+                formData[input.name] = input.value.trim();
+                if (!input.value.trim()) {
+                    allFilled = false;
+                }
             });
 
-            const product = answers.join(" > ");
+            if (!allFilled) {
+                alert("Please fill out all fields.");
+                return;
+            }
+
             const payload = {
-                name: formData.first_name + " " + formData.last_name,
+                firstName: formData.first_name,
+                lastName: formData.last_name,
                 phone: formData.telephone_number,
                 email: formData.email,
-                product,
+                selectedAnswers: answers
             };
 
-            await fetch("https://chatbot-project-tau.vercel.app/api/email", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(payload)
-            });
+            try {
+                const res = await fetch("https://chatbot-project-tau.vercel.app/api/email", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
 
-            container.innerHTML = `<h2>Thank you! We will reach out shortly.</h2>`;
+                if (!res.ok) {
+                    throw new Error("Failed to send data.");
+                }
+
+                container.innerHTML = `<h2>Thank you! We will reach out shortly.</h2>`;
+            } catch (err) {
+                container.innerHTML = `<h2>Something went wrong. Please try again later.</h2>`;
+                console.error(err);
+            }
         };
 
         div.appendChild(document.createElement("br"));
