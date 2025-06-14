@@ -204,7 +204,7 @@ async function handleSubmit() {
     const submitBtn = container.querySelector(".submit-btn");
     if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.textContent = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.textContent = 'Sending...';
     }
 
     const payload = {
