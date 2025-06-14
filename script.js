@@ -129,7 +129,7 @@ function renderQuestion() {
         termsText.htmlFor = "terms-checkbox";
         termsText.className = "terms-text";
         termsText.innerHTML = `
-            <strong>By submitting my information, I authorize Life Alarm Service, its accredited members, authorized dealers, and agents to communicate with me regarding product and service options, including via automated systems such as artificial intelligence chat tools, pre-recorded messages, and text messages. I agree to Life Alarm Service's <a href="#terms" target="_blank">Terms of Use</a> & <a href="#privacy" target="_blank">Privacy Policy</a>, including the use of an electronic record to document my agreement.</strong>
+            <strong>By submitting my information, I authorize Life Alarm Services, its accredited members, authorized dealers, and agents to communicate with me regarding product and service options, including via automated systems such as artificial intelligence chat tools, pre-recorded messages, and text messages. I agree to Life Alarm Services's <a href="#terms" target="_blank">Terms of Use</a> & <a href="#privacy" target="_blank">Privacy Policy</a>, including the use of an electronic record to document my agreement.</strong>
         `;
 
         termsWrapper.appendChild(termsCheckbox);
