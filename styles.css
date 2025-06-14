@@ -12,6 +12,109 @@ body {
     line-height: 1.6;
 }
 
+.top-header {
+    background: white;
+    padding: 15px 0;
+    border-bottom: 1px solid #e9ecef;
+    display: block;
+}
+
+.top-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.company-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+}
+
+.company-logo {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.top-call-btn {
+    background: white;
+    border: 2px solid #667eea;
+    color: #667eea;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.top-call-btn:hover {
+    background: #dc3545;
+    border-color: #dc3545;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.promo-banner {
+    background: linear-gradient(135deg, #5a4fcf 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 0;
+}
+
+.promo-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.promo-text {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.promo-call-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.promo-call-btn:hover {
+    background: #dc3545;
+    border-color: #dc3545;
+    color: white;
+    transform: translateY(-1px);
+}
+
 .main-container {
     max-width: 900px;
     margin: 0 auto;
@@ -28,21 +131,22 @@ body {
     font-family: 'Playfair Display', serif;
     font-size: 2.8rem;
     font-weight: 700;
-    color: #2c3e50;
+    color: rgb(43, 43, 43);
     margin-bottom: 20px;
     line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .subtitle {
     font-size: 1.2rem;
-    color: #6c757d;
-    font-weight: 300;
+    color: rgb(43, 43, 43);
+    font-weight: 400;
 }
 
 .quiz-card {
-    background: white;
+    background: #35265f;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 35px rgba(90, 79, 207, 0.3);
     padding: 40px;
     margin-bottom: 30px;
     position: relative;
@@ -56,13 +160,13 @@ body {
     left: 0;
     right: 0;
     height: 5px;
-    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
 }
 
 .progress-bar {
     width: 100%;
     height: 6px;
-    background: #e9ecef;
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 3px;
     margin-bottom: 30px;
     overflow: hidden;
@@ -70,7 +174,7 @@ body {
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(90deg, #e00b0b 0%, rgba(134, 19, 19, 0.9) 100%);
     border-radius: 3px;
     transition: width 0.3s ease;
 }
@@ -79,9 +183,10 @@ body {
     font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
     font-weight: 600;
-    color: #2c3e50;
+    color: white;
     margin-bottom: 30px;
     text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .options-container {
@@ -93,25 +198,26 @@ body {
 
 .option-btn {
     background: white;
-    border: 2px solid #e9ecef;
+    border: 2px solid white;
     padding: 18px 25px;
     border-radius: 50px;
     font-size: 1.1rem;
     font-weight: 500;
-    color: #495057;
+    color: #5a4fcf;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
     text-align: center;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
 .option-btn:hover {
-    border-color: #667eea;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #dc3545;
+    border-color: #dc3545;
     color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
 }
 
 .option-btn::after {
@@ -122,6 +228,7 @@ body {
     transform: translateY(-50%);
     opacity: 0;
     transition: opacity 0.3s ease;
+    color: inherit;
 }
 
 .option-btn:hover::after {
@@ -146,25 +253,30 @@ body {
 
 .form-input {
     padding: 15px 20px;
-    border: 2px solid #e9ecef;
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     font-size: 1rem;
     font-family: 'Open Sans', sans-serif;
     transition: all 0.3s ease;
-    background: #f8f9fa;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
 }
 
 .form-input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: white;
     background: white;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.form-input::placeholder {
+    color: #666;
 }
 
 .submit-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
+    background: white;
+    color: #5a4fcf;
+    border: 2px solid white;
     padding: 18px 40px;
     border-radius: 50px;
     font-size: 1.1rem;
@@ -175,17 +287,21 @@ body {
     max-width: 300px;
     margin: 20px auto 0;
     display: block;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
 .submit-btn:hover {
+    background: #dc3545;
+    border-color: #dc3545;
+    color: white;
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 10px 30px rgba(220, 53, 69, 0.4);
 }
 
 .call-btn {
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-    color: white;
-    border: none;
+    background: white;
+    color: rgb(43, 42, 42);
+    border: 2px solid rgb(43, 42, 42);
     padding: 18px 30px;
     border-radius: 50px;
     font-size: 1.1rem;
@@ -199,8 +315,10 @@ body {
 }
 
 .call-btn:hover {
+    background: #dc3545;
+    border-color: #dc3545;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
     text-decoration: none;
     color: white;
 }
@@ -213,9 +331,10 @@ body {
     font-family: 'Playfair Display', serif;
     font-size: 2rem;
     font-weight: 600;
-    color: #2c3e50;
+    color: rgb(43, 43, 43);
     text-align: center;
     margin-bottom: 30px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .images-grid {
@@ -228,11 +347,12 @@ body {
 .image-card {
     border-radius: 15px;
     padding: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .image-card:hover {
     transform: translateY(-5px);
+
 }
 
 .adv-img {
@@ -257,26 +377,42 @@ body {
 .success-title {
     font-family: 'Playfair Display', serif;
     font-size: 2.2rem;
-    color: #28a745;
+    color: white;
     margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .success-text {
     font-size: 1.1rem;
-    color: #6c757d;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .error-message {
-    background: #f8d7da;
+    background: rgba(248, 215, 218, 0.9);
     color: #721c24;
     padding: 15px;
     border-radius: 10px;
     margin-bottom: 20px;
     text-align: center;
     font-weight: 500;
+    border: 1px solid rgba(114, 28, 36, 0.2);
 }
 
 @media (max-width: 768px) {
+    .top-header {
+        display: none;
+    }
+
+    .promo-content {
+        flex-direction: row;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .promo-text {
+        font-size: 0.7rem;
+    }
+
     .main-title {
         font-size: 2.2rem;
     }
