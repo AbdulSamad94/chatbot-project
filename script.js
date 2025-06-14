@@ -74,8 +74,8 @@ function renderQuestion() {
 
         const helpCallBtn = document.createElement("a");
         helpCallBtn.className = "help-call-btn";
-        helpCallBtn.href = "tel:+923132959809";
-        helpCallBtn.innerHTML = '<i class="fas fa-phone"></i> +92 313 2959809';
+        helpCallBtn.href = "tel:+18007805433";
+        helpCallBtn.innerHTML = '<i class="fas fa-phone"></i> +1-800-780-5433';
 
         helpSection.appendChild(helpText);
         helpSection.appendChild(helpCallBtn);
@@ -287,8 +287,8 @@ function showThankYou() {
             <p class="success-text">We've received your information and will reach out to you shortly with your personalized medical alert system recommendation.</p>
             <div style="margin-top: 30px;">
                 <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 20px; font-weight: 500;">Skip the wait and get instant assistance:</p>
-                <a href="tel:+923132959809" class="call-btn">
-                     Call Now: +92 313 2959809
+                <a href="tel:+18007805433" class="call-btn">
+                     Call Now: +1-800-780-5433
                 </a>
             </div>
         </div>
