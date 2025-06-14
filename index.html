@@ -4,12 +4,51 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Medical Chatbot</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>Life Alarm - Medical Alert System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Open+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="chat-container" id="chat-container"></div>
+    <div class="main-container">
+        <div class="header">
+            <h1 class="main-title">Find a medical alert system that's right for a loved one.</h1>
+            <p class="subtitle">Get your personalized recommendation in just a few steps</p>
+        </div>
+
+        <div class="quiz-card">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div id="chat-container"></div>
+        </div>
+
+        <div class="images-section">
+            <h2 class="images-title">We’re the #1 Rated Medical Alert System Provider</h2>
+            <div class="images-grid">
+                <div class="image-card">
+                    <img class="adv-img" src="/public/assets/adv-img-1.png" alt="Medical Alert Device 1">
+                    <div class="image-caption">Aging In Place</div>
+                </div>
+                <div class="image-card">
+                    <img class="adv-img" src="/public/assets/adv-img-2.png" alt="Medical Alert Device 2">
+                    <div class="image-caption">Best Company 2024</div>
+                </div>
+                <div class="image-card">
+                    <img class="adv-img" src="/public/assets/adv-img-3.png" alt="Medical Alert Device 3">
+                    <div class="image-caption">Best Reviews</div>
+                </div>
+                <div class="image-card">
+                    <img class="adv-img" src="/public/assets/adv-img-4.png" alt="Medical Alert Device 4">
+                    <div class="image-caption">Great Customer Service</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
