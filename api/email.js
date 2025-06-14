@@ -23,7 +23,6 @@ export default async function handler(req, res) {
         });
     }
 
-    // Log the incoming request for debugging
     console.log("Received request body:", req.body);
     console.log("Request headers:", req.headers);
 
