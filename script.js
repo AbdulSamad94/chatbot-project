@@ -63,6 +63,24 @@ function renderQuestion() {
         });
 
         questionDiv.appendChild(optionsContainer);
+
+        // Add help section for option questions
+        const helpSection = document.createElement("div");
+        helpSection.className = "help-section";
+
+        const helpText = document.createElement("p");
+        helpText.className = "help-text";
+        helpText.textContent = "Question? Call us";
+
+        const helpCallBtn = document.createElement("a");
+        helpCallBtn.className = "help-call-btn";
+        helpCallBtn.href = "tel:+923132959809";
+        helpCallBtn.innerHTML = '<i class="fas fa-phone"></i> +92 313 2959809';
+
+        helpSection.appendChild(helpText);
+        helpSection.appendChild(helpCallBtn);
+        questionDiv.appendChild(helpSection);
+
     } else {
         const formContainer = document.createElement("div");
         formContainer.className = "form-container";
@@ -92,10 +110,41 @@ function renderQuestion() {
 
         questionDiv.appendChild(formContainer);
 
+        // Add terms and conditions section
+        const termsContainer = document.createElement("div");
+        termsContainer.className = "terms-container";
+
+        const termsWrapper = document.createElement("div");
+        termsWrapper.className = "terms-checkbox-wrapper";
+
+        const termsCheckbox = document.createElement("input");
+        termsCheckbox.type = "checkbox";
+        termsCheckbox.id = "terms-checkbox";
+        termsCheckbox.className = "terms-checkbox";
+        termsCheckbox.required = true;
+
+        const termsText = document.createElement("label");
+        termsText.htmlFor = "terms-checkbox";
+        termsText.className = "terms-text";
+        termsText.innerHTML = `
+            <strong>By submitting my information, I authorize Life Alarm Service, its accredited members, authorized dealers, and agents to communicate with me regarding product and service options, including via automated systems such as artificial intelligence chat tools, pre-recorded messages, and text messages. I agree to Life Alarm Service's <a href="#terms" target="_blank">Terms of Use</a> & <a href="#privacy" target="_blank">Privacy Policy</a>, including the use of an electronic record to document my agreement.</strong>
+        `;
+
+        termsWrapper.appendChild(termsCheckbox);
+        termsWrapper.appendChild(termsText);
+        termsContainer.appendChild(termsWrapper);
+        questionDiv.appendChild(termsContainer);
+
         const submitBtn = document.createElement("button");
         submitBtn.className = "submit-btn";
         submitBtn.textContent = "Get My Free Quote";
+        submitBtn.disabled = true; // Initially disabled
         submitBtn.onclick = handleSubmit;
+
+        // Enable/disable submit button based on checkbox
+        termsCheckbox.addEventListener('change', function () {
+            submitBtn.disabled = !this.checked;
+        });
 
         questionDiv.appendChild(submitBtn);
     }
@@ -104,7 +153,8 @@ function renderQuestion() {
 }
 
 async function handleSubmit() {
-    const inputs = container.querySelectorAll("input");
+    const inputs = container.querySelectorAll("input[type='text'], input[type='email'], input[type='tel']");
+    const termsCheckbox = container.querySelector("#terms-checkbox");
     const formData = {};
     let allFilled = true;
     let errorMessage = "";
@@ -113,6 +163,12 @@ async function handleSubmit() {
     const existingError = container.querySelector(".error-message");
     if (existingError) {
         existingError.remove();
+    }
+
+    // Check if terms are agreed
+    if (!termsCheckbox.checked) {
+        allFilled = false;
+        errorMessage = "Please agree to the terms and conditions to continue.";
     }
 
     inputs.forEach(input => {
@@ -134,7 +190,7 @@ async function handleSubmit() {
         const errorDiv = document.createElement("div");
         errorDiv.className = "error-message";
         errorDiv.textContent = errorMessage;
-        container.querySelector(".question").insertBefore(errorDiv, container.querySelector(".submit-btn"));
+        container.querySelector(".question").insertBefore(errorDiv, container.querySelector(".terms-container"));
         return;
     }
 
@@ -143,7 +199,8 @@ async function handleSubmit() {
         lastName: formData.last_name,
         phone: formData.telephone_number,
         email: formData.email,
-        selectedAnswers: answers
+        selectedAnswers: answers,
+        termsAgreed: termsCheckbox.checked
     };
 
     try {
@@ -164,7 +221,7 @@ async function handleSubmit() {
         const errorDiv = document.createElement("div");
         errorDiv.className = "error-message";
         errorDiv.textContent = "Something went wrong. Please try again later.";
-        container.querySelector(".question").insertBefore(errorDiv, container.querySelector(".submit-btn"));
+        container.querySelector(".question").insertBefore(errorDiv, container.querySelector(".terms-container"));
         console.error(err);
     }
 }
@@ -178,7 +235,7 @@ function showThankYou() {
             <div style="margin-top: 30px;">
                 <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 20px; font-weight: 500;">Skip the wait and get instant assistance:</p>
                 <a href="tel:+923132959809" class="call-btn">
-                    📞 Call Now: +92 313 2959809
+                     Call Now: +92 313 2959809
                 </a>
             </div>
         </div>
