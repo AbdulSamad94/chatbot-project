@@ -89,7 +89,6 @@ export default async function handler(req, res) {
             }
         });
 
-        // Verify transporter configuration
         try {
             await transporter.verify();
         } catch (verifyError) {
