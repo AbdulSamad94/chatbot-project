@@ -109,6 +109,12 @@ function renderQuestion() {
             formGroup.appendChild(input);
             formContainer.appendChild(formGroup);
         });
+        const honeypot = document.createElement("input");
+        honeypot.type = "text";
+        honeypot.name = "website";
+        honeypot.style.cssText = "position:absolute;left:-9999px;top:-9999px;";
+        honeypot.tabIndex = -1;
+        formContainer.appendChild(honeypot);
 
         questionDiv.appendChild(formContainer);
 
@@ -197,7 +203,7 @@ async function handleSubmit() {
     const submitBtn = container.querySelector(".submit-btn");
     if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.textContent = "Sending...";
+        submitBtn.textContent = '<i class="fas fa-spinner fa-spin"></i> Sending...';;
     }
 
     const payload = {
@@ -301,9 +307,8 @@ function isValidEmail(email) {
 }
 
 function isValidPhone(phone) {
-    // More flexible phone validation
-    const phoneRegex = /^[\d\s\-\+\(\)]{7,}$/;
-    return phoneRegex.test(phone);
+    const cleaned = phone.replace(/\D/g, '');
+    return cleaned.length >= 10 && cleaned.length <= 15;
 }
 
 // Initialize the quiz

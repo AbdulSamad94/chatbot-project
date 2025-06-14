@@ -1,5 +1,8 @@
 import nodemailer from "nodemailer";
 
+const submissions = new Map();
+
+
 export default async function handler(req, res) {
     // Set CORS headers
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -9,6 +12,12 @@ export default async function handler(req, res) {
         "Access-Control-Allow-Headers",
         "X-CSRF-Token, X-Requested-With, Accept, Content-Type, Authorization"
     );
+
+    function sanitizeInput(str) {
+        if (typeof str !== 'string') return '';
+        return str.trim().replace(/[<>]/g, '');
+    }
+
 
     // Handle preflight requests
     if (req.method === "OPTIONS") {
@@ -25,6 +34,20 @@ export default async function handler(req, res) {
 
     console.log("Received request body:", req.body);
     console.log("Request headers:", req.headers);
+
+    const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.connection.remoteAddress || 'unknown';
+    const now = Date.now();
+
+    if (submissions.has(ip)) {
+        const lastSubmit = submissions.get(ip);
+        if (now - lastSubmit < 60000) { // 1 minute cooldown
+            return res.status(429).json({
+                success: false,
+                message: "Please wait 1 minute before submitting again"
+            });
+        }
+    }
+    submissions.set(ip, now);
 
     try {
         const { firstName, lastName, email, phone, selectedAnswers, termsAgreed } = req.body;
@@ -71,6 +94,14 @@ export default async function handler(req, res) {
             });
         }
 
+        if (req.body.website && req.body.website.trim() !== '') {
+            console.log("Bot detected - honeypot filled");
+            return res.status(400).json({
+                success: false,
+                message: "Invalid submission"
+            });
+        }
+
         // Check for required environment variables
         if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
             console.error("Missing email configuration");
@@ -104,17 +135,20 @@ export default async function handler(req, res) {
             to: process.env.TOSEND_EMAIL,
             subject: "New Lead from Chatbot",
             html: `
-                <h2>New Lead Information</h2>
-                <p><strong>First Name:</strong> ${firstName.trim()}</p>
-                <p><strong>Last Name:</strong> ${lastName.trim()}</p>
-                <p><strong>Email:</strong> ${email.trim()}</p>
-                <p><strong>Phone:</strong> ${phone.trim()}</p>
-                <h3>Quiz Answers:</h3>
-                <ul>
-                    ${selectedAnswers.map(ans => `<li>${String(ans).replace(/</g, '&lt;').replace(/>/g, '&gt;')}</li>`).join("")}
-                </ul>
-                <hr>
-                <p><small>Submitted at: ${new Date().toISOString()}</small></p>
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #35265f; border-bottom: 2px solid #35265f; padding-bottom: 10px;">New Life Alarm Lead</h2>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <p><strong>Name:</strong> ${sanitizeInput(firstName)} ${sanitizeInput(lastName)}</p>
+            <p><strong>Email:</strong> <a href="mailto:${sanitizeInput(email)}">${sanitizeInput(email)}</a></p>
+            <p><strong>Phone:</strong> <a href="tel:${sanitizeInput(phone)}">${sanitizeInput(phone)}</a></p>
+        </div>
+        <h3 style="color: #35265f;">Questions Responses:</h3>
+        <ol style="background: #fff; padding: 20px; border-left: 4px solid #35265f;">
+            ${selectedAnswers.map(ans => `<li style="margin: 5px 0;">${String(ans).replace(/</g, '&lt;').replace(/>/g, '&gt;')}</li>`).join("")}
+        </ol>
+        <hr style="border: 1px solid #eee; margin: 20px 0;">
+        <p style="color: #666; font-size: 12px; text-align: center;">Submitted: ${new Date().toLocaleString()}</p>
+    </div>
             `
         };
 
