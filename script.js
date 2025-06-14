@@ -102,6 +102,8 @@ function renderQuestion() {
                 input.type = "email";
             } else if (field === "Telephone Number") {
                 input.type = "tel";
+            } else {
+                input.type = "text"; // Explicitly set type for other inputs
             }
 
             formGroup.appendChild(input);
@@ -166,7 +168,7 @@ async function handleSubmit() {
     }
 
     // Check if terms are agreed
-    if (!termsCheckbox.checked) {
+    if (!termsCheckbox || !termsCheckbox.checked) {
         allFilled = false;
         errorMessage = "Please agree to the terms and conditions to continue.";
     }
@@ -176,7 +178,7 @@ async function handleSubmit() {
         formData[input.name] = value;
         if (!value) {
             allFilled = false;
-            errorMessage = "Please fill out all fields.";
+            if (!errorMessage) errorMessage = "Please fill out all fields.";
         } else if (input.type === "email" && !isValidEmail(value)) {
             allFilled = false;
             errorMessage = "Please enter a valid email address.";
@@ -187,42 +189,93 @@ async function handleSubmit() {
     });
 
     if (!allFilled) {
-        const errorDiv = document.createElement("div");
-        errorDiv.className = "error-message";
-        errorDiv.textContent = errorMessage;
-        container.querySelector(".question").insertBefore(errorDiv, container.querySelector(".terms-container"));
+        showError(errorMessage);
         return;
     }
 
+    // Disable submit button to prevent double submission
+    const submitBtn = container.querySelector(".submit-btn");
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+    }
+
     const payload = {
-        firstName: formData.first_name,
-        lastName: formData.last_name,
-        phone: formData.telephone_number,
-        email: formData.email,
-        selectedAnswers: answers,
-        termsAgreed: termsCheckbox.checked
+        firstName: formData.first_name || "",
+        lastName: formData.last_name || "",
+        phone: formData.telephone_number || "",
+        email: formData.email || "",
+        selectedAnswers: answers || [],
+        termsAgreed: termsCheckbox ? termsCheckbox.checked : false
     };
+
+    // Debug log to see what's being sent
+    console.log("Sending payload:", payload);
 
     try {
         const res = await fetch("https://chatbot-project-tau.vercel.app/api/email", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Accept": "application/json"
             },
             body: JSON.stringify(payload)
         });
 
+        // Get response text first to debug
+        const responseText = await res.text();
+        console.log("Response status:", res.status);
+        console.log("Response text:", responseText);
+
         if (!res.ok) {
-            throw new Error("Failed to send data.");
+            let errorData;
+            try {
+                errorData = JSON.parse(responseText);
+            } catch (e) {
+                errorData = { message: responseText || "Failed to send data." };
+            }
+            throw new Error(errorData.message || "Failed to send data.");
+        }
+
+        // Try to parse as JSON
+        let result;
+        try {
+            result = JSON.parse(responseText);
+        } catch (e) {
+            result = { success: true }; // Assume success if we can't parse
         }
 
         showThankYou();
     } catch (err) {
-        const errorDiv = document.createElement("div");
-        errorDiv.className = "error-message";
-        errorDiv.textContent = "Something went wrong. Please try again later.";
-        container.querySelector(".question").insertBefore(errorDiv, container.querySelector(".terms-container"));
-        console.error(err);
+        console.error("Submit error:", err);
+        showError("Something went wrong. Please try again later.");
+
+        // Re-enable submit button
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Get My Free Quote";
+        }
+    }
+}
+
+function showError(message) {
+    const errorDiv = document.createElement("div");
+    errorDiv.className = "error-message";
+    errorDiv.textContent = message;
+    errorDiv.style.cssText = `
+        color: #ff4444;
+        background: rgba(255, 68, 68, 0.1);
+        padding: 12px;
+        border-radius: 8px;
+        margin: 15px 0;
+        border: 1px solid rgba(255, 68, 68, 0.3);
+        font-size: 14px;
+    `;
+
+    const question = container.querySelector(".question");
+    const termsContainer = container.querySelector(".terms-container");
+    if (question && termsContainer) {
+        question.insertBefore(errorDiv, termsContainer);
     }
 }
 
@@ -248,7 +301,8 @@ function isValidEmail(email) {
 }
 
 function isValidPhone(phone) {
-    const phoneRegex = /^[\d\s\-\+\(\)]{10,}$/;
+    // More flexible phone validation
+    const phoneRegex = /^[\d\s\-\+\(\)]{7,}$/;
     return phoneRegex.test(phone);
 }
 
