@@ -175,6 +175,12 @@ function showThankYou() {
                 <div class="success-message">
                     <h2 class="success-title">Thank You!</h2>
                     <p class="success-text">We've received your information and will reach out to you shortly with your personalized medical alert system recommendation.</p>
+                    <div style="margin-top: 30px;">
+                        <p style="font-size: 1.1rem; color: #495057; margin-bottom: 20px; font-weight: 500;">Skip the wait and get instant assistance:</p>
+                        <a href="tel:+923132959809" class="call-btn">
+                            📞 Call Now: +92 313 2959809
+                        </a>
+                    </div>
                 </div>
             `;
 }
