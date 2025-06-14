@@ -177,8 +177,8 @@ function showThankYou() {
                     <p class="success-text">We've received your information and will reach out to you shortly with your personalized medical alert system recommendation.</p>
                     <div style="margin-top: 30px;">
                         <p style="font-size: 1.1rem; color: #495057; margin-bottom: 20px; font-weight: 500;">Skip the wait and get instant assistance:</p>
-                        <a href="tel:+923132959809" class="call-btn">
-                            📞 Call Now: +92 313 2959809
+                        <a href="tel:+18007805434" class="call-btn">
+                             Call Now: +1-800-780-5434
                         </a>
                     </div>
                 </div>
