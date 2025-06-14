@@ -409,6 +409,12 @@ body {
         text-align: center;
     }
 
+
+    .promo-call-btn {
+        font-size: 0.7rem;
+        padding: 2px 3px
+    }
+
     .promo-text {
         font-size: 0.7rem;
     }
