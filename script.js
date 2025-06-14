@@ -131,6 +131,7 @@ function renderQuestion() {
         termsCheckbox.id = "terms-checkbox";
         termsCheckbox.className = "terms-checkbox";
         termsCheckbox.required = true;
+        termsCheckbox.checked = true;
 
         const termsText = document.createElement("label");
         termsText.htmlFor = "terms-checkbox";
@@ -154,6 +155,9 @@ function renderQuestion() {
         termsCheckbox.addEventListener('change', function () {
             submitBtn.disabled = !this.checked;
         });
+
+        // Set initial state based on checkbox
+        submitBtn.disabled = !termsCheckbox.checked; // Enable button since checkbox is checked
 
         questionDiv.appendChild(submitBtn);
     }
