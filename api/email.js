@@ -110,7 +110,6 @@ export default async function handler(req, res) {
                 <p><strong>Last Name:</strong> ${lastName.trim()}</p>
                 <p><strong>Email:</strong> ${email.trim()}</p>
                 <p><strong>Phone:</strong> ${phone.trim()}</p>
-                <p><strong>Terms Agreed:</strong> ${termsAgreed ? 'Yes' : 'No'}</p>
                 <h3>Quiz Answers:</h3>
                 <ul>
                     ${selectedAnswers.map(ans => `<li>${String(ans).replace(/</g, '&lt;').replace(/>/g, '&gt;')}</li>`).join("")}
