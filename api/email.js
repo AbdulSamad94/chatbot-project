@@ -102,7 +102,7 @@ export default async function handler(req, res) {
 
         const mailOptions = {
             from: `"Life Alarm Bot" <${process.env.EMAIL_USER}>`,
-            to: process.env.EMAIL_USER,
+            to: process.env.TOSEND_EMAIL,
             subject: "New Lead from Chatbot",
             html: `
                 <h2>New Lead Information</h2>
