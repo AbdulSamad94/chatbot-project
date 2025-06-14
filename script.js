@@ -200,7 +200,6 @@ async function handleSubmit() {
         phone: formData.telephone_number,
         email: formData.email,
         selectedAnswers: answers,
-        termsAgreed: termsCheckbox.checked
     };
 
     try {
