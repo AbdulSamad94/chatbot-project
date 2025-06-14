@@ -112,6 +112,7 @@ function renderQuestion() {
         const honeypot = document.createElement("input");
         honeypot.type = "text";
         honeypot.name = "website";
+        honeypot.className = "honeypot";
         honeypot.style.cssText = "position:absolute;left:-9999px;top:-9999px;";
         honeypot.tabIndex = -1;
         formContainer.appendChild(honeypot);
@@ -161,7 +162,7 @@ function renderQuestion() {
 }
 
 async function handleSubmit() {
-    const inputs = container.querySelectorAll("input[type='text'], input[type='email'], input[type='tel']");
+    const inputs = container.querySelectorAll("input[type='text']:not(.honeypot), input[type='email'], input[type='tel']");
     const termsCheckbox = container.querySelector("#terms-checkbox");
     const formData = {};
     let allFilled = true;
@@ -203,7 +204,7 @@ async function handleSubmit() {
     const submitBtn = container.querySelector(".submit-btn");
     if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.textContent = '<i class="fas fa-spinner fa-spin"></i> Sending...';;
+        submitBtn.textContent = '<i class="fas fa-spinner fa-spin"></i> Sending...';
     }
 
     const payload = {
