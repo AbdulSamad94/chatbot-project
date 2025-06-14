@@ -66,6 +66,10 @@ body {
     gap: 8px;
 }
 
+.icon {
+    color: #35265f;
+}
+
 .top-call-btn:hover {
     background: #dc3545;
     border-color: #dc3545;
@@ -411,8 +415,8 @@ body {
 
 
     .promo-call-btn {
-        font-size: 0.7rem;
-        padding: 2px 3px
+        font-size: 0.6rem;
+        padding: 4px 3px
     }
 
     .promo-text {
