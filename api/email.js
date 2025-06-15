@@ -132,7 +132,7 @@ export default async function handler(req, res) {
 
         const mailOptions = {
             from: `"Life Alarm Bot" <${process.env.EMAIL_USER}>`,
-            to: process.env.TOSEND_EMAIL,
+            to: process.env.EMAIL_USER,
             subject: "New Lead from Chatbot",
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
